@@ -1,7 +1,10 @@
+const User = require("./model");
+
 const controller = {
-  getRoot: (req, res, next) => {
+  getUsers: async (req, res, next) => {
     res.status(200).send({
-      message: "Users"
+      message: "Users",
+      users: await User.find({})
     });
   }
 };
