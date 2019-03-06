@@ -84,3 +84,66 @@ Example Data:
   "details": "<p></p>"
 }
 ```
+
+Buyers_collection:
+
+```json
+{
+  "name": "name",
+  "email": "email",
+  "salt": "",
+  "password": "password",
+  "image": "/assets/images/picture.jpg"
+}
+```
+
+Farmers_collection:
+
+```json
+{
+  "name": "name",
+  "email": "email",
+  "salt": "",
+  "password": "password",
+  "location": "location",
+  "product_id": ObjectID(),
+  "image": ["/assets/images/picture.jpg"]
+}
+```
+
+Products_collection:
+
+```json
+{
+  "name": "name",
+  "category": [
+    { "fruits": "apple" },
+    { "vegetables": "tomato" },
+    { "rice": "rice" }
+  ],
+  "price": number,
+  "image": ["/assets/images/picture.jpg"],
+  "description": "description",
+  "farmers_id": ObjectID(),
+  "subCategory": "subCategory"
+}
+```
+
+Cart:
+
+```json
+{
+  "_id": "12121821982",
+  "buyer_id": "2344tnghkjkj",
+  "products": [
+    {
+      "_id": "120910291029",
+      "quantity": 10
+    },
+    {
+      "_id": "120910291029",
+      "quantity": 10
+    }
+  ]
+}
+```
