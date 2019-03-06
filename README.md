@@ -25,62 +25,86 @@ yarn start
 
 ---
 
-# Endpoint and Data
+# Endpoint and Data Collection
 
-## Users
+## Buyers
 
-| Endpoint          | Method | Description           | isAuthenticated | isAdmin |
-| ----------------- | ------ | --------------------- | --------------- | ------- |
-| `/`               | GET    | Hello                 |                 |         |
-| `/users/register` | POST   | Register new user     |                 |         |
-| `/users/login`    | POST   | Login to user         |                 |         |
-| `/users/profile`  | GET    | Get user profile      | YES             |         |
-| `/users/:id`      | GET    | Get one user by id    |                 |         |
-| `/users`          | GET    | Get all users         |                 |         |
-| `/users`          | DELETE | Delete all users      |                 | YES     |
-| `/users/:id`      | DELETE | Delete one user by id | YES             |         |
-| `/users/:id`      | PUT    | Update one user by id |                 |         |
-
-Example Data:
+| Endpoint           | Method | Description         | isAuthenticated |
+| ------------------ | ------ | ------------------- | --------------- |
+| `/`                | GET    | Hello               |                 |
+| `/buyers/register` | POST   | Register new buyer  |                 |
+| `/buyers/login`    | POST   | Login to buyer      |                 |
+| `/buyers`          | GET    | Get all buyers      |                 |
+| `/buyers/:id`      | GET    | Get one buyer by id |                 |
+| `/buyers`          | DELETE | Delete all buyers   |                 |
 
 ```json
 {
   "_id": ObjectID(),
   "id": 1,
-  "name": "",
-  "email": "",
+  "name": "name",
+  "email": "email",
   "salt": "",
-  "password": ""
+  "password": "password",
+  "image": "/assets/images/picture.jpg"
 }
 ```
 
-## Items
-
-| Endpoint           | Method | Description           | isAuthenticated | isAdmin |
-| ------------------ | ------ | --------------------- | --------------- | ------- |
-| `/items`           | GET    | Get all items         |                 |         |
-| `/items?q=keyword` | GET    | Search for items      |                 |         |
-| `/items`           | POST   | Create new idea       | YES             |         |
-| `/items`           | DELETE | Delete all items      |                 | YES     |
-| `/items/:id`       | DELETE | Delete one idea by id | YES             |         |
-| `/items/:id`       | PUT    | Update one idea by id | YES             |         |
-
-Example Data:
+## Farmers
 
 ```json
 {
-  "_id": ObjectID(),
-  "id": 1,
-  "title": "",
-  "description": "",
-  "author": "",
-  "date": "",
-  "slug": "",
-  "images": [
-    "/assets/images/picture.jpg",
-    "/assets/images/picture.jpg",
-    "/assets/images/picture.jpg"
-  ],
-  "details": "<p></p>"
+  "name": "name",
+  "email": "email",
+  "image": ["/assets/images/picture.jpg"],
+  "password": "",
+  "salt": "",
+  "location": "location",
+  "products": [ObjectID(), ObjectID(), ObjectID()]
+}
+```
+
+## Carts
+
+```json
+{
+  "_id": "12121821982",
+  "buyer_id": "2344tnghkjkj",
+  "products": [
+    {
+      "_id": "120910291029",
+      "quantity": 10
+    },
+    {
+      "_id": "120910291029",
+      "quantity": 10
+    }
+  ]
+}
+```
+
+## Commodities
+
+```json
+{
+  "name": "Apel Malang Karapitan",
+  "tags": ["fruits", "apple", "malang"],
+  "price": 24000,
+  "image": "/assets/images/picture.jpg",
+  "description": "description",
+  "farmer_id": ObjectID()
+}
+```
+
+## Products
+
+```json
+{
+  "name": "Apel Malang Karapitan",
+  "tags": ["fruits", "apple", "malang"],
+  "price": 24000,
+  "image": "/assets/images/picture.jpg",
+  "description": "description",
+  "farmer_id": ObjectID()
 }
 ```
