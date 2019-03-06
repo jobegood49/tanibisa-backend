@@ -29,14 +29,17 @@ yarn start
 
 ## Buyers
 
-| Endpoint           | Method | Description         | isAuthenticated |
-| ------------------ | ------ | ------------------- | --------------- |
-| `/`                | GET    | Hello               |                 |
-| `/buyers/register` | POST   | Register new buyer  |                 |
-| `/buyers/login`    | POST   | Login to buyer      |                 |
-| `/buyers`          | GET    | Get all buyers      |                 |
-| `/buyers/:id`      | GET    | Get one buyer by id |                 |
-| `/buyers`          | DELETE | Delete all buyers   |                 |
+| Endpoint          | Method | Description           | isAuthenticated | isAdmin |
+| ----------------- | ------ | --------------------- | --------------- | ------- |
+| `/`               | GET    | Hello                 |                 |         |
+| `/users/register` | POST   | Register new user     |                 |         |
+| `/users/login`    | POST   | Login to user         |                 |         |
+| `/users/profile`  | GET    | Get user profile      | YES             |         |
+| `/users/:id`      | GET    | Get one user by id    |                 |         |
+| `/users`          | GET    | Get all users         |                 |         |
+| `/users/:id`      | DELETE | Delete one user by id | YES             |         |
+
+Example Data:
 
 ```json
 {
@@ -52,32 +55,62 @@ yarn start
 
 ## Farmers
 
+| Endpoint   | Method | Description     | isAuthenticated | isAdmin |
+| ---------- | ------ | --------------- | --------------- | ------- |
+| `/farmers` | GET    | Get all farmers |                 |         |
+
+Example Data:
+
 ```json
 {
-  "name": "name",
-  "email": "email",
-  "image": ["/assets/images/picture.jpg"],
-  "password": "",
-  "salt": "",
-  "location": "location",
+  "_id": ObjectID(),
+  "id": 1,
+  "name": "Abu Budi",
+  "email": "",
+  "image": "",
   "products": [ObjectID(), ObjectID(), ObjectID()]
 }
 ```
 
-## Carts
+Populated Data of Farmer > Product > Commodity.
 
 ```json
 {
-  "_id": "12121821982",
-  "buyer_id": "2344tnghkjkj",
+  "_id": ObjectID(),
+  "id": 1,
+  "name": "Abu Budi",
+  "email": "",
+  "image": "",
   "products": [
     {
-      "_id": "120910291029",
-      "quantity": 10
+      "_id": ObjectID(),
+      "id": 1,
+      "farmer_id": ObjectID(), // from token's sub
+      "price": 34000,
+      "commodity_id": {
+        "_id": ObjectID(),
+        "id": 1,
+        "name": "Apple Rome Beauty",
+        "description": "",
+        "image": "/assets/images/picture.jpg",
+        "category": "Fruits",
+        "sub_category": "Apple"
+      }
     },
     {
-      "_id": "120910291029",
-      "quantity": 10
+      "_id": ObjectID(),
+      "id": 1,
+      "farmer_id": ObjectID(), // from token's sub
+      "price": 20000,
+      "commodity_id": {
+        "_id": ObjectID(),
+        "id": 1,
+        "name": "Apple Rome Beauty",
+        "description": "",
+        "image": "/assets/images/picture.jpg",
+        "category": "Fruits",
+        "sub_category": "Apple"
+      }
     }
   ]
 }
@@ -85,26 +118,60 @@ yarn start
 
 ## Commodities
 
+| Endpoint       | Method | Description         | isAuthenticated | isAdmin |
+| -------------- | ------ | ------------------- | --------------- | ------- |
+| `/commodities` | GET    | Get all commodities |                 |         |
+
+## Carts
+
 ```json
 {
-  "name": "Apel Malang Karapitan",
-  "tags": ["fruits", "apple", "malang"],
-  "price": 24000,
+  "_id": ObjectID(),
+  "id": 1,
+  "name": "Apple Rome Beauty",
+  "description": "",
   "image": "/assets/images/picture.jpg",
-  "description": "description",
-  "farmer_id": ObjectID()
+  "category": "Fruits",
+  "sub_category": "Apple",
+  "products": [ObjectID(), ObjectID(), ObjectID()]
+}
+```
+
+## Commodities
+
+| Endpoint       | Method | Description         | isAuthenticated | isAdmin |
+| -------------- | ------ | ------------------- | --------------- | ------- |
+| `/commodities` | GET    | Get all commodities |                 |         |
+
+Example Data:
+
+```json
+{
+  "_id": ObjectID(),
+  "id": 1,
+  "name": "Apple Rome Beauty",
+  "description": "",
+  "image": "/assets/images/picture.jpg",
+  "category": "Fruits",
+  "sub_category": "Apple",
+  "products": [ObjectID(), ObjectID(), ObjectID()]
 }
 ```
 
 ## Products
 
+| Endpoint    | Method | Description      | isAuthenticated | isAdmin |
+| ----------- | ------ | ---------------- | --------------- | ------- |
+| `/products` | GET    | Get all products |                 |         |
+
+Example Data:
+
 ```json
 {
-  "name": "Apel Malang Karapitan",
-  "tags": ["fruits", "apple", "malang"],
-  "price": 24000,
-  "image": "/assets/images/picture.jpg",
-  "description": "description",
-  "farmer_id": ObjectID()
+  "_id": ObjectID(),
+  "id": 1,
+  "farmer_id": ObjectID(), // from token's sub
+  "commodity_id": ObjectID(),
+  "price": 34000
 }
 ```
