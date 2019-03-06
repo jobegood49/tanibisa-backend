@@ -116,69 +116,6 @@ Populated Data of Farmer > Product > Commodity.
 }
 ```
 
-## Farmers
-
-| Endpoint       | Method | Description     | isAuthenticated | isAdmin |
-| -------------- | ------ | --------------- | --------------- | ------- |
-| `/commodities` | GET    | Get all farmers |                 |         |
-
-Example Data:
-
-```json
-{
-  "_id": ObjectID(),
-  "id": 1,
-  "name": "Abu Budi",
-  "email": "",
-  "image": "",
-  "products": [ObjectID(), ObjectID(), ObjectID()]
-}
-```
-
-Populated Data of Farmer > Product > Commodity.
-
-```json
-{
-  "_id": ObjectID(),
-  "id": 1,
-  "name": "Abu Budi",
-  "email": "",
-  "image": "",
-  "products": [
-    {
-      "_id": ObjectID(),
-      "id": 1,
-      "farmer_id": ObjectID(), // from token's sub
-      "price": 34000,
-      "commodity_id": {
-        "_id": ObjectID(),
-        "id": 1,
-        "name": "Apple Rome Beauty",
-        "description": "",
-        "image": "/assets/images/picture.jpg",
-        "category": "Fruits",
-        "sub_category": "Apple"
-      }
-    },
-    {
-      "_id": ObjectID(),
-      "id": 1,
-      "farmer_id": ObjectID(), // from token's sub
-      "price": 20000,
-      "commodity_id": {
-        "_id": ObjectID(),
-        "id": 1,
-        "name": "Apple Rome Beauty",
-        "description": "",
-        "image": "/assets/images/picture.jpg",
-        "category": "Fruits",
-        "sub_category": "Apple"
-      }
-    }
-  ]
-}
-```
-
 ## Commodities
 
 | Endpoint       | Method | Description         | isAuthenticated | isAdmin |
