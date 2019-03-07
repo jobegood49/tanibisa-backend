@@ -1,9 +1,9 @@
 const User = require('./model')
 
 const controller = {
-  getUsers: async (req, res, next) => {
+  getBuyers: async (req, res, next) => {
     res.status(200).send({
-      message: 'Users'
+      message: 'Buyers'
     })
   }
 }
