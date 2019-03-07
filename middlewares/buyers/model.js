@@ -2,7 +2,7 @@ require('dotenv').config()
 const mongoose = require('../../config/mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
-// User schema
+// Buyer schema
 const BuyerSchema = mongoose.Schema({
   name: String,
   email: String,
