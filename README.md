@@ -29,15 +29,15 @@ yarn start
 
 ## Buyers
 
-| Endpoint          | Method | Description           | isAuthenticated | isAdmin |
-| ----------------- | ------ | --------------------- | --------------- | ------- |
-| `/`               | GET    | Hello                 |                 |         |
-| `/users/register` | POST   | Register new user     |                 |         |
-| `/users/login`    | POST   | Login to user         |                 |         |
-| `/users/profile`  | GET    | Get user profile      | YES             |         |
-| `/users/:id`      | GET    | Get one user by id    |                 |         |
-| `/users`          | GET    | Get all users         |                 |         |
-| `/users/:id`      | DELETE | Delete one user by id | YES             |         |
+| Endpoint           | Method | Description           | isAuthenticated | isAdmin |
+| ------------------ | ------ | --------------------- | --------------- | ------- |
+| `/`                | GET    | Hello                 |                 |         |
+| `/buyers/register` | POST   | Register new user     |                 |         |
+| `/buyers/login`    | POST   | Login to user         |                 |         |
+| `/buyers/profile`  | GET    | Get user profile      | YES             |         |
+| `/buyers/:id`      | GET    | Get one user by id    |                 |         |
+| `/buyers`          | GET    | Get all buyers        |                 |         |
+| `/buyers/:id`      | DELETE | Delete one user by id | YES             |         |
 
 Example Data:
 
@@ -55,9 +55,15 @@ Example Data:
 
 ## Farmers
 
-| Endpoint   | Method | Description     | isAuthenticated | isAdmin |
-| ---------- | ------ | --------------- | --------------- | ------- |
-| `/farmers` | GET    | Get all farmers |                 |         |
+| Endpoint            | Method | Description           | isAuthenticated | isAdmin |
+| ------------------- | ------ | --------------------- | --------------- | ------- |
+| `/`                 | GET    | Hello                 |                 |         |
+| `/farmers/register` | POST   | Register new user     |                 |         |
+| `/farmers/login`    | POST   | Login to user         |                 |         |
+| `/farmers/profile`  | GET    | Get user profile      | YES             |         |
+| `/farmers/:id`      | GET    | Get one user by id    |                 |         |
+| `/farmers`          | GET    | Get all buyers        |                 |         |
+| `/farmers/:id`      | DELETE | Delete one user by id | YES             |         |
 
 Example Data:
 
