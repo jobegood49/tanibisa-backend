@@ -13,4 +13,6 @@ router.get('/profile', controller.getBuyerProfile)
 
 router.get('/:id', controller.getBuyerById)
 
+router.delete('/:id', controller.removeBuyerById)
+
 module.exports = router

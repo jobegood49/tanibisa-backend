@@ -86,6 +86,15 @@ const controller = {
         text: 'error'
       })
     }
+  },
+  removeBuyerById: async (req, res, next) => {
+    const removeBuyerBydId = await Buyer.findOneAndRemove({
+      _id: req.params.id
+    })
+    res.send({
+      message: 'one buyer has been deleted',
+      buyer: removeBuyerBydId
+    })
   }
 }
 
