@@ -29,14 +29,44 @@ const controller = {
       image: req.body.image
     }
 
+    const createdBuyer = await Buyer.create(registerBuyer).then(
+      createdBuyer => createdBuyer
+    )
+
     res.send({
-      message: 'created new buyer',
-      register: registerBuyer
+      message: 'New Buyer has been created',
+      register: createdBuyer
+    })
+  },
+  Login: async (req, res, next) => {
+    const buyer = {
+      email: req.body.email,
+      password: req.body.password
+    }
+
+    const foundBuyer = await Buyer.findOne({ email: buyer.email })
+    console.log(buyer)
+    const comparePassword = await bcrypt.compare(
+      buyer.password,
+      foundBuyer.password
+    )
+    console.log(comparePassword)
+    const payload = {
+      sub: foundBuyer._id
+    }
+
+    const token = await jwt.sign(payload, process.env.SECRET)
+
+    res.status(200).send({
+      message: 'Succesfully log in',
+      foundBuyer: {
+        name: foundBuyer.name,
+        email: foundBuyer.email
+      },
+      authenticated: comparePassword,
+      token: token
     })
   }
-  // Login: async (req, res, next) => {
-  //   const buyer = []
-  // }
 }
 
 module.exports = controller
