@@ -4,10 +4,12 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // Buyer schema
 const BuyerSchema = mongoose.Schema({
+  id: Number,
   name: String,
   email: String,
   salt: String,
-  password: String
+  password: String,
+  image: String
 })
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
