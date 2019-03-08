@@ -1,22 +1,31 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const Farmer = require('./model')
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const Farmer = require("./model")
 
 const controller = {
+  /////////////////////////////////
   getFarmers: async (req, res, next) => {
     const allFarmers = await Farmer.find({}, { salt: 0, password: 0 })
 
     res.status(200).send({
-      message: 'List of all Farmers',
-      Farmers: allFarmers
+      message: "List of all farmers",
+      farmers: allFarmers
     })
   },
+
+  /////////////////////////////////
   getFarmerById: async (req, res, next) => {
-    const FarmerBydId = await Farmer.findOne({ _id: req.params.id })
+    const farmer = await Farmer.findOne(
+      { id: Number(req.params.id) },
+      { salt: 0, password: 0 }
+    )
+
     res.send({
-      Farmer: FarmerBydId
+      farmer: farmer
     })
   },
+
+  /////////////////////////////////
   Register: async (req, res, next) => {
     const salt = await bcrypt.genSalt(10)
     const password = await bcrypt.hash(req.body.password, salt)
@@ -35,7 +44,7 @@ const controller = {
     )
 
     res.send({
-      message: 'New Farmer has been created',
+      message: "New Farmer has been created",
       createdFarmer: {
         name: createdFarmer.name,
         email: createdFarmer.email,
@@ -43,19 +52,21 @@ const controller = {
       }
     })
   },
+
+  /////////////////////////////////
   Login: async (req, res, next) => {
-    const Farmer = {
+    const farmer = {
       email: req.body.email,
       password: req.body.password
     }
 
-    const foundFarmer = await Farmer.findOne({ email: Farmer.email })
-    console.log(Farmer)
+    const foundFarmer = await Farmer.findOne({ email: farmer.email })
+
     const comparePassword = await bcrypt.compare(
-      Farmer.password,
+      farmer.password,
       foundFarmer.password
     )
-    console.log(comparePassword)
+
     const payload = {
       sub: foundFarmer._id
     }
@@ -63,7 +74,7 @@ const controller = {
     const token = await jwt.sign(payload, process.env.SECRET)
 
     res.status(200).send({
-      message: 'Succesfully log in',
+      message: "Succesfully log in",
       foundFarmer: {
         name: foundFarmer.name,
         email: foundFarmer.email
@@ -73,30 +84,44 @@ const controller = {
     })
   },
 
+  /////////////////////////////////
   getFarmerProfile: async (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
+    const token = req.headers.authorization.split(" ")[1]
     console.log(token)
+
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       console.log(decoded)
       res.status(200).send({
-        text: 'success',
+        text: "success",
         token: token
       })
     } catch (error) {
       res.status(404).send({
-        text: 'error'
+        text: "error"
       })
     }
   },
+
+  /////////////////////////////////
   removeFarmerById: async (req, res, next) => {
-    const removeFarmerBydId = await Farmer.findOneAndRemove({
-      _id: req.params.id
-    })
-    res.send({
-      message: 'one Farmer has been deleted',
-      Farmer: removeFarmerBydId
-    })
+    const farmer = await Farmer.findOneAndRemove(
+      {
+        id: Number(req.params.id)
+      },
+      { salt: 0, password: 0 }
+    )
+
+    if (farmer) {
+      res.send({
+        message: "One farmer has been deleted",
+        farmer: farmer
+      })
+    } else {
+      res.send({
+        message: "No farmer found with that id"
+      })
+    }
   }
 }
 
