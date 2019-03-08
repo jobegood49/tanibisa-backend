@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const index = require('./middlewares')
 const buyers = require('./middlewares/buyers')
 
+const farmers = require('./middlewares/farmers')
+
 const app = express()
 
 // uncomment after placing your favicon in /public
@@ -19,6 +21,9 @@ app.use(cookieParser())
 
 app.use('/', index)
 app.use('/buyers', buyers)
+
+app.use('/', index)
+app.use('/farmers', farmers)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
