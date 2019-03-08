@@ -38,7 +38,8 @@ const controller = {
       message: 'New Farmer has been created',
       createdFarmer: {
         name: createdFarmer.name,
-        email: createdFarmer.email
+        email: createdFarmer.email,
+        location: createdFarmer.location
       }
     })
   },
