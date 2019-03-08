@@ -4,7 +4,7 @@ const Buyer = require('./model')
 
 const controller = {
   getBuyers: async (req, res, next) => {
-    const allBuyers = await Buyer.find()
+    const allBuyers = await Buyer.find({}, { salt: 0, password: 0 })
 
     res.status(200).send({
       message: 'List of all buyers',
@@ -35,7 +35,10 @@ const controller = {
 
     res.send({
       message: 'New Buyer has been created',
-      register: createdBuyer
+      createdBuyer: {
+        name: createdBuyer.name,
+        email: createdBuyer.email
+      }
     })
   },
   Login: async (req, res, next) => {
@@ -66,6 +69,23 @@ const controller = {
       authenticated: comparePassword,
       token: token
     })
+  },
+
+  getBuyerProfile: async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1]
+    console.log(token)
+    try {
+      const decoded = await jwt.verify(token, process.env.SECRET)
+      console.log(decoded)
+      res.status(200).send({
+        text: 'success',
+        token: token
+      })
+    } catch (error) {
+      res.status(404).send({
+        text: 'error'
+      })
+    }
   }
 }
 

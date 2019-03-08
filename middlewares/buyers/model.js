@@ -4,7 +4,6 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 // Buyer schema
 const BuyerSchema = mongoose.Schema({
-  id: Number,
   name: String,
   email: String,
   salt: String,
