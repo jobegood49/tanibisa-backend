@@ -128,27 +128,6 @@ Populated Data of Farmer > Product > Commodity.
 | -------------- | ------ | ------------------- | --------------- | ------- |
 | `/commodities` | GET    | Get all commodities |                 |         |
 
-## Carts
-
-```json
-{
-  "_id": ObjectID(),
-  "id": 1,
-  "name": "Apple Rome Beauty",
-  "description": "",
-  "image": "/assets/images/picture.jpg",
-  "category": "Fruits",
-  "sub_category": "Apple",
-  "products": [ObjectID(), ObjectID(), ObjectID()]
-}
-```
-
-## Commodities
-
-| Endpoint       | Method | Description         | isAuthenticated | isAdmin |
-| -------------- | ------ | ------------------- | --------------- | ------- |
-| `/commodities` | GET    | Get all commodities |                 |         |
-
 Example Data:
 
 ```json
@@ -179,5 +158,23 @@ Example Data:
   "farmer_id": ObjectID(), // from token's sub
   "commodity_id": ObjectID(),
   "price": 34000
+}
+```
+
+## Carts
+
+| Endpoint | Method | Description   | isAuthenticated |
+| -------- | ------ | ------------- | --------------- |
+| `/carts` | GET    | Get all carts | YES             |
+
+Example Data:
+
+```json
+{
+  "_id": ObjectID,
+  "id": 1,
+  "buyer_id": ObjectID, // from token's sub
+  "products": [ObjectId],
+  "paid": true
 }
 ```
