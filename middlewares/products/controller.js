@@ -12,15 +12,18 @@ const controller = {
   }
   // ,
   // createNewProducts: async (req, res) => {
-  //   const decodedToken = await helpers.verifyToken(req.token)
+  //   const token = req.body.authorization.split(' ')[1]
+  //   // const decodedToken = await helpers.verifyToken(req.token)
   //   const newCommodities = {
-  //     author: decodedToken.sub,
+  //     // author: decodedToken.sub,
   //     name: req.body.name,
   //     price: req.body.price,
   //     image: req.body.image,
   //     description: req.body.description
   //   }
-  // }
+  //   res.send({
+  //     message: 'new product has been created!'
+  //   })
 }
 
 module.exports = controller
