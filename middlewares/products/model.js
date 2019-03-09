@@ -5,7 +5,8 @@ const Schema = mongoose.Schema
 
 // Products schema
 const Productschema = Schema({
-  product_name: String,
+  name: String,
+  description: String,
   farmer_id: Object, // from token's sub
   commodity_id: Object,
   price: Number,
