@@ -10,6 +10,17 @@ const controller = {
       products: allProducts
     })
   }
+  // ,
+  // createNewProducts: async (req, res) => {
+  //   const decodedToken = await helpers.verifyToken(req.token)
+  //   const newCommodities = {
+  //     author: decodedToken.sub,
+  //     name: req.body.name,
+  //     price: req.body.price,
+  //     image: req.body.image,
+  //     description: req.body.description
+  //   }
+  // }
 }
 
 module.exports = controller
