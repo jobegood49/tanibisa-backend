@@ -1,6 +1,6 @@
-require("dotenv").config()
-const mongoose = require("../../config/mongoose")
-const AutoIncrement = require("mongoose-sequence")(mongoose)
+require('dotenv').config()
+const mongoose = require('../../config/mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 const Schema = mongoose.Schema
 
 // Farmer schema
@@ -14,7 +14,7 @@ const Farmerschema = Schema({
   products: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Product"
+      ref: 'Product'
     }
   ]
 })
@@ -23,11 +23,11 @@ const Farmerschema = Schema({
 // id is different with _id
 // inc_field is to track which id to increment
 Farmerschema.plugin(AutoIncrement, {
-  id: "Farmers_counter",
-  inc_field: "id"
+  id: 'farmers_counter',
+  inc_field: 'id'
 })
 
 // Byer model => Farmers collection
-const Farmers = mongoose.model("Farmers", Farmerschema)
+const Farmers = mongoose.model('Farmer', Farmerschema)
 
 module.exports = Farmers

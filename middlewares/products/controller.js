@@ -5,6 +5,8 @@ const controller = {
   //////////////////////////////////////////////////////////////////////////////
   getProducts: async (req, res, next) => {
     const products = await Product.find()
+      .populate('farmer_id', { salt: 0, password: 0, email: 0 })
+      .populate('commodity_id')
 
     res.status(200).send({
       message: 'List of all products',
@@ -26,6 +28,25 @@ const controller = {
       message: 'Created new product',
       result: result
     })
+  },
+
+  getOneProductById: async (req, res, next) => {
+    const product = await Product.findOne({
+      id: Number(req.params.id)
+    })
+      .populate('farmer_id', { salt: 0, password: 0, email: 0 })
+      .populate('commodity_id')
+
+    if (product) {
+      res.status(200).send({
+        message: 'Get one product by id',
+        product: product
+      })
+    } else {
+      res.status(404).send({
+        message: 'Product not found!'
+      })
+    }
   }
 }
 

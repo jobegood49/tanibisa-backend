@@ -25,10 +25,10 @@ const Commoditiesschema = Schema({
 // id is different with _id
 // inc_field is to track which id to increment
 Commoditiesschema.plugin(AutoIncrement, {
-  id: 'Commodities_counter',
+  id: 'commodities_counter',
   inc_field: 'id'
 })
 
-const Commodities = mongoose.model('Commodities', Commoditiesschema)
+const Commodities = mongoose.model('Commodity', Commoditiesschema)
 
 module.exports = Commodities
