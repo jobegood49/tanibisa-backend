@@ -137,8 +137,7 @@ Example Data:
   "name": "Apple Rome Beauty",
   "description": "",
   "image": "/assets/images/picture.jpg",
-  "category": "Fruits",
-  "sub_category": "Apple",
+  "tags": ["fruits", "apple"],
   "products": [ObjectID(), ObjectID(), ObjectID()]
 }
 ```

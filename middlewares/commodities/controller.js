@@ -1,25 +1,29 @@
-const Commodities = require('./model')
+const Commodity = require('./model')
 
 const controller = {
-  /////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   getCommodities: async (req, res, next) => {
-    const allCommodities = await Commodities.find()
+    const commodities = await Commodity.find()
 
     res.status(200).send({
       message: 'List of all commodities',
-      commodities: allCommodities
+      commodities: commodities
     })
-    // },
-    // ////////////////////////////////
-    // createNewCommodities: async (req, res) => {
-    //   const decodedToken = await helpers.verifyToken(req.token)
-    //   const newCommodities = {
-    //     author: decodedToken.sub,
-    //     name: req.body.name,
-    //     description: req.body.description,
-    //     image: req.body.image
-    //   }
-    // }
+  },
+  //////////////////////////////////////////////////////////////////////////////
+  createNewCommodity: async (req, res, next) => {
+    const newCommodity = {
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      tags: req.body.tags
+    }
+    const result = await Commodity.create(newCommodity)
+
+    res.send({
+      message: 'Created new commodity',
+      result: result
+    })
   }
 }
 
