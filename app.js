@@ -11,6 +11,7 @@ const farmers = require('./middlewares/farmers')
 const buyers = require('./middlewares/buyers')
 const commodities = require('./middlewares/commodities')
 const products = require('./middlewares/products')
+const carts = require('./middlewares/carts')
 
 const app = express()
 app.use(cors())
@@ -26,6 +27,7 @@ app.use('/farmers', farmers)
 app.use('/buyers', buyers)
 app.use('/commodities', commodities)
 app.use('/products', products)
+app.use('/carts', carts)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
