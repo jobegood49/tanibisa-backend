@@ -1,6 +1,14 @@
 const Commodity = require('./model')
 
 const controller = {
+  seedCommodities: async (req, res, next) => {
+    // ...
+
+    res.status(200).send({
+      message: 'Seed initial commodities'
+    })
+  },
+
   //////////////////////////////////////////////////////////////////////////////
   getCommodities: async (req, res, next) => {
     const commodities = await Commodity.find()
@@ -10,6 +18,7 @@ const controller = {
       commodities: commodities
     })
   },
+
   //////////////////////////////////////////////////////////////////////////////
   createNewCommodity: async (req, res, next) => {
     const newCommodity = {

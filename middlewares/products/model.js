@@ -5,27 +5,25 @@ const Schema = mongoose.Schema
 
 // Products schema
 const Productschema = Schema({
-  name: String,
-  description: String,
-  farmer_id: Object, // from token's sub
-  commodity_id: Object,
-  price: Number,
-  products: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Product'
-    }
-  ]
+  farmer_id: {
+    type: Schema.Types.ObjectId, // from token's req.decoded.sub
+    ref: 'Farmer'
+  },
+  commodity_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'Commodity'
+  },
+  price: Number // item/Kg
 })
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
 // id is different with _id
 // inc_field is to track which id to increment
 Productschema.plugin(AutoIncrement, {
-  id: 'Products_counter',
+  id: 'products_counter',
   inc_field: 'id'
 })
 
-const Products = mongoose.model('{Products}', Productschema)
+const Products = mongoose.model('Product', Productschema)
 
 module.exports = Products

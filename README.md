@@ -146,9 +146,11 @@ Example Data:
 
 ## Products
 
-| Endpoint    | Method | Description      | isAuthenticated | isAdmin |
-| ----------- | ------ | ---------------- | --------------- | ------- |
-| `/products` | GET    | Get all products |                 |         |
+| Endpoint        | Method | Description           | isAuthenticated |
+| --------------- | ------ | --------------------- | --------------- |
+| `/products`     | GET    | Get all products      |                 |
+| `/products/:id` | GET    | Get one product by id |                 |
+| `/products`     | POST   | Create new product    | YES as Farmer   |
 
 Example Data:
 
@@ -157,8 +159,8 @@ Example Data:
   "_id": ObjectID(),
   "id": 1,
   "farmer_id": ObjectID(), // from token's sub
-  "commodity_id": ObjectID(),
-  "price": 34000
+  "commodity_id": ObjectID(), // from existing commodity
+  "price": 34000 // item/Kg
 }
 ```
 
