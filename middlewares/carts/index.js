@@ -1,8 +1,8 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
 
-const controller = require("./controller")
+const controller = require('./controller')
 
-router.get("/", controller.getCarts)
+router.get('/', controller.getCarts)
 
 module.exports = router

@@ -124,9 +124,11 @@ Populated Data of Farmer > Product > Commodity.
 
 ## Commodities
 
-| Endpoint       | Method | Description         | isAuthenticated | isAdmin |
-| -------------- | ------ | ------------------- | --------------- | ------- |
-| `/commodities` | GET    | Get all commodities |                 |         |
+| Endpoint           | Method | Description          | isAuthenticated |
+| ------------------ | ------ | -------------------- | --------------- |
+| `/commodities`     | GET    | Get all commodities  |                 |
+| `/commodities/:id` | GET    | Get one commodity    |                 |
+| `/commodities`     | POST   | Create new commodity |                 |
 
 Example Data:
 
@@ -137,17 +139,18 @@ Example Data:
   "name": "Apple Rome Beauty",
   "description": "",
   "image": "/assets/images/picture.jpg",
-  "category": "Fruits",
-  "sub_category": "Apple",
+  "tags": ["fruits", "apple"],
   "products": [ObjectID(), ObjectID(), ObjectID()]
 }
 ```
 
 ## Products
 
-| Endpoint    | Method | Description      | isAuthenticated | isAdmin |
-| ----------- | ------ | ---------------- | --------------- | ------- |
-| `/products` | GET    | Get all products |                 |         |
+| Endpoint        | Method | Description           | isAuthenticated |
+| --------------- | ------ | --------------------- | --------------- |
+| `/products`     | GET    | Get all products      |                 |
+| `/products/:id` | GET    | Get one product by id |                 |
+| `/products`     | POST   | Create new product    | YES as Farmer   |
 
 Example Data:
 
@@ -156,8 +159,8 @@ Example Data:
   "_id": ObjectID(),
   "id": 1,
   "farmer_id": ObjectID(), // from token's sub
-  "commodity_id": ObjectID(),
-  "price": 34000
+  "commodity_id": ObjectID(), // from existing commodity
+  "price": 34000 // item/Kg
 }
 ```
 
