@@ -5,5 +5,6 @@ const controller = require('./controller')
 
 router.get('/', controller.getCommodities)
 router.post('/', controller.createNewCommodity)
+router.get('/:id', controller.getOneCommodityById)
 
 module.exports = router

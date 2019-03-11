@@ -24,6 +24,15 @@ const controller = {
       message: 'Created new commodity',
       result: result
     })
+  },
+
+  getOneCommodityById: async (req, res, next) => {
+    const commodity = await Commodity.findOne({ id: Number(req.params.id) })
+
+    res.status(200).send({
+      message: 'Get one commodity by id',
+      commodity: commodity
+    })
   }
 }
 

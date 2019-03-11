@@ -124,9 +124,11 @@ Populated Data of Farmer > Product > Commodity.
 
 ## Commodities
 
-| Endpoint       | Method | Description         | isAuthenticated | isAdmin |
-| -------------- | ------ | ------------------- | --------------- | ------- |
-| `/commodities` | GET    | Get all commodities |                 |         |
+| Endpoint           | Method | Description          | isAuthenticated |
+| ------------------ | ------ | -------------------- | --------------- |
+| `/commodities`     | GET    | Get all commodities  |                 |
+| `/commodities/:id` | GET    | Get one commodity    |                 |
+| `/commodities`     | POST   | Create new commodity |                 |
 
 Example Data:
 
