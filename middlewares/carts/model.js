@@ -5,16 +5,17 @@ const Schema = mongoose.Schema
 
 // Cart schema
 const CartSchema = mongoose.Schema({
-  _id: Number,
   buyer_id: {
     type: Schema.Types.ObjectId, // from token's req.decoded.sub
     ref: 'Buyer'
   },
-  id: Number,
   products: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Product'
+      _id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+      },
+      quantity: Number
     }
   ],
   paid: Boolean
