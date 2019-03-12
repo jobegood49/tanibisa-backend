@@ -14,7 +14,8 @@ const controller = {
     const newCart = {
       buyer_id: req.body.buyer_id,
       products: [
-        { productId: req.body.product_id, quantity: req.body.quantity }
+        { productId: req.body.product_id },
+        { quantity: req.body.quantity }
       ],
       image: req.body.image,
       tags: req.body.tags
@@ -32,6 +33,15 @@ const controller = {
 
     res.status(200).send({
       message: 'Get one cart by id',
+      cart: cart
+    })
+  },
+  //////////////////////////////////////////////////////////
+  addProduct: async (req, res, next) => {
+    const cart = await Cart.findOneAndUpdate({ product_id })
+
+    res.status(200).send({
+      message: 'Add your product',
       cart: cart
     })
   }
