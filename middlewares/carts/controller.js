@@ -44,17 +44,25 @@ const controller = {
       message: 'Add your product:',
       cart: cart
     })
+  },
+  addAddress: async (req, res, next) => {
+    const cart = await Cart.findByIdAndUpdate(req.params.id, {
+      address: req.body.address
+    })
+
+    const newCart = await Cart.findById(cart.id)
+
+    if (cart) {
+      res.status(200).send({
+        message: 'Addess has been updated!',
+        newCart
+      })
+    } else {
+      res.status(400).send({
+        message: 'updating address failed!'
+      })
+    }
   }
-  // ,
-  // addAddress: async (req, res, next) => {
-  //   const cart = await Cart.findByIdAndUpdate({ Cart }),
-
-  //   address: req.body.address
-
-  //   res.status(200).send({
-  //     message: 'Addess has been updated!',
-  //     cart: cart
-  //   })
 }
 
 module.exports = controller
