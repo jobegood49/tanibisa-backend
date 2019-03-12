@@ -38,13 +38,23 @@ const controller = {
   },
   //////////////////////////////////////////////////////////
   addProduct: async (req, res, next) => {
-    const cart = await Cart.findOneAndUpdate({ product_id })
+    const cart = await Cart.findByIdAndUpdate({ Cart })
 
     res.status(200).send({
-      message: 'Add your product',
+      message: 'Add your product:',
       cart: cart
     })
   }
+  // ,
+  // addAddress: async (req, res, next) => {
+  //   const cart = await Cart.findByIdAndUpdate({ Cart }),
+
+  //   address: req.body.address
+
+  //   res.status(200).send({
+  //     message: 'Addess has been updated!',
+  //     cart: cart
+  //   })
 }
 
 module.exports = controller
