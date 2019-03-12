@@ -18,7 +18,8 @@ const CartSchema = mongoose.Schema({
       quantity: Number
     }
   ],
-  paid: Boolean
+  paid: Boolean,
+  address: String
 })
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
