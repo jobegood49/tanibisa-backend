@@ -2,12 +2,12 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('./controller')
+const auth = require('../auth/controller')
 
-router.get('/', controller.getCarts)
-router.post('/', controller.createNewCart)
-router.get('/:id', controller.getOneCartById)
-router.put('/:id/add-product', controller.addProduct)
-router.put('/:id/add-address', controller.addAddress)
-// router.put
+router.get('/', auth.isAuthenticated, controller.getCarts)
+router.post('/', auth.isAuthenticated, controller.createNewCart)
+router.put('/:id/add-product', auth.isAuthenticated, controller.addProduct)
+router.put('/:id/add-address', auth.isAuthenticated, controller.addAddress)
+router.get('/:id', auth.isAuthenticated, controller.getOneCartById)
 
 module.exports = router
