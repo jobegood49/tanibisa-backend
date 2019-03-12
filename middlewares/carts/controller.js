@@ -1,25 +1,30 @@
 const Cart = require('./model')
 
 const controller = {
+  //////////////////////////////////////////////////////////////////////////////
   getCarts: async (req, res, next) => {
-    const cart = await Cart.find()
+    const carts = await Cart.find({}).populate('buyer_id', {
+      salt: 0,
+      password: 0
+    })
 
     res.status(200).send({
-      message: 'cart list :',
-      cart: cart
+      message: 'Get all carts',
+      carts: carts
     })
   },
-  /////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
   createNewCart: async (req, res, next) => {
+    // default cart state
     const newCart = {
-      buyer_id: req.body.buyer_id,
-      products: [
-        { productId: req.body.product_id },
-        { quantity: req.body.quantity }
-      ],
-      image: req.body.image,
-      tags: req.body.tags
+      buyer_id: req.decoded.sub, // buyer's objectId
+      products: [],
+      paid: false
     }
+
+    console.log(newCart)
+
     const result = await Cart.create(newCart)
 
     res.send({
@@ -27,34 +32,56 @@ const controller = {
       result: result
     })
   },
-  /////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
   getOneCartById: async (req, res, next) => {
-    const cart = await Cart.findOne({ id: Number(req.params.id) })
+    // Cart.find({}).populate({ path: 'userId', populate: { path: 'reviewId' } })
+
+    const cart = await Cart.findOne({ id: Number(req.params.id) }).populate({
+      path: 'products._id',
+      populate: { path: 'commodity_id' }
+    })
 
     res.status(200).send({
       message: 'Get one cart by id',
       cart: cart
     })
   },
-  //////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////
   addProduct: async (req, res, next) => {
-    const cart = await Cart.findByIdAndUpdate({ Cart })
+    const cart = await Cart.findOneAndUpdate(
+      { id: Number(req.params.id) },
+      {
+        $push: {
+          products: {
+            _id: req.body._id,
+            quantity: req.body.quantity
+          }
+        }
+      },
+      { new: true }
+    )
 
     res.status(200).send({
-      message: 'Add your product:',
+      message: 'Add product to cart',
+      cart: cart
+    })
+  },
+
+  //////////////////////////////////////////////////////////////////////////////
+  addAddress: async (req, res, next) => {
+    const cart = await Cart.findOneAndUpdate(
+      { id: Number(req.params.id) },
+      { $set: { address: req.body.address } },
+      { new: true }
+    )
+
+    res.status(200).send({
+      message: 'Add address to the cart',
       cart: cart
     })
   }
-  // ,
-  // addAddress: async (req, res, next) => {
-  //   const cart = await Cart.findByIdAndUpdate({ Cart }),
-
-  //   address: req.body.address
-
-  //   res.status(200).send({
-  //     message: 'Addess has been updated!',
-  //     cart: cart
-  //   })
 }
 
 module.exports = controller
