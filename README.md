@@ -181,8 +181,9 @@ Example Data:
 {
   "_id": ObjectID,
   "id": 1,
-  "buyer_id": ObjectID, // from token's sub
+  "buyer_id": ObjectID, // from buyer token's sub
   "products": [ObjectId],
-  "paid": true
+  "paid": true,
+  "address": "Jl. Jalan Men No. 10"
 }
 ```
