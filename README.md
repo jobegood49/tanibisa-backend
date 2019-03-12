@@ -183,7 +183,8 @@ Example Data:
   "id": 1,
   "buyer_id": ObjectID, // from buyer token's sub
   "products": [ObjectId],
-  "paid": true,
-  "address": "Jl. Jalan Men No. 10"
+  "address": "Jl. Jalan Men No. 10",
+  "checkout": false,
+  "paid": false
 }
 ```
