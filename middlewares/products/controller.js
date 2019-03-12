@@ -29,7 +29,7 @@ const controller = {
       result: result
     })
   },
-
+  ///////////////////////////////////////////////////////////////////////////////
   getOneProductById: async (req, res, next) => {
     const product = await Product.findOne({
       id: Number(req.params.id)

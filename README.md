@@ -166,9 +166,14 @@ Example Data:
 
 ## Carts
 
-| Endpoint | Method | Description   | isAuthenticated |
-| -------- | ------ | ------------- | --------------- |
-| `/carts` | GET    | Get all carts | YES             |
+| Endpoint                 | Method | Description                    | isAuthenticated |
+| ------------------------ | ------ | ------------------------------ | --------------- |
+| `/carts`                 | GET    | Get all carts                  | YES             |
+| `/carts`                 | POST   | create new cart                | YES             |
+| `/carts/:id`             | GET    | get cart by id                 | YES             |
+| `/carts/:id/add-product` | PUT    | add product into existing cart | YES             |
+| `/carts/:id/add-address` | PUT    | add adress into existing cart  | YES             |
+| `/carts/:id/checkout`    | PUT    | checkout the cart              | YES             |
 
 Example Data:
 
@@ -176,8 +181,10 @@ Example Data:
 {
   "_id": ObjectID,
   "id": 1,
-  "buyer_id": ObjectID, // from token's sub
+  "buyer_id": ObjectID, // from buyer token's sub
   "products": [ObjectId],
-  "paid": true
+  "address": "Jl. Jalan Men No. 10",
+  "checkout": false,
+  "paid": false
 }
 ```
