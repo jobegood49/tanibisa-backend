@@ -1,11 +1,12 @@
 const Commodity = require('./model')
 
 const controller = {
-  seedCommodities: async (req, res, next) => {
-    // ...
+  getSeed: async (req, res, next) => {
+    const seed = await Commodity.find()
 
     res.status(200).send({
-      message: 'Seed initial commodities'
+      message: 'Seed initial commodities:',
+      seed: seed
     })
   },
 
