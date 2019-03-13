@@ -81,6 +81,18 @@ const controller = {
       message: 'Add address to the cart',
       cart: cart
     })
+  },
+  ////////////////////////////////////////////////////////////////////////////////
+  checkout: async (req, res, next) => {
+    const cart = await Cart.findOneAndUpdate(
+      { id: Number(req.params.id) },
+      { $set: { checkout: true } }
+    ).populate({
+      path: 'products._id',
+      populate: { path: 'products_id' }
+    })
+
+    res.send(cart)
   }
 }
 
