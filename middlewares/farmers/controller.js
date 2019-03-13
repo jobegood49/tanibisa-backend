@@ -1,6 +1,6 @@
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
-const Farmer = require("./model")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const Farmer = require('./model')
 
 const controller = {
   /////////////////////////////////
@@ -8,7 +8,7 @@ const controller = {
     const allFarmers = await Farmer.find({}, { salt: 0, password: 0 })
 
     res.status(200).send({
-      message: "List of all farmers",
+      message: 'List of all farmers',
       farmers: allFarmers
     })
   },
@@ -44,7 +44,7 @@ const controller = {
     )
 
     res.send({
-      message: "New Farmer has been created",
+      message: 'New Farmer has been created',
       createdFarmer: {
         name: createdFarmer.name,
         email: createdFarmer.email,
@@ -62,43 +62,49 @@ const controller = {
 
     const foundFarmer = await Farmer.findOne({ email: farmer.email })
 
-    const comparePassword = await bcrypt.compare(
-      farmer.password,
-      foundFarmer.password
-    )
+    if (foundFarmer) {
+      const comparePassword = await bcrypt.compare(
+        farmer.password,
+        foundFarmer.password
+      )
 
-    const payload = {
-      sub: foundFarmer._id
+      const payload = {
+        sub: foundFarmer._id
+      }
+
+      const token = await jwt.sign(payload, process.env.SECRET)
+
+      res.status(200).send({
+        message: 'Succesfully log in',
+        foundFarmer: {
+          name: foundFarmer.name,
+          email: foundFarmer.email
+        },
+        authenticated: comparePassword,
+        token: token
+      })
+    } else {
+      res.status(404).send({
+        message: 'User is not found'
+      })
     }
-
-    const token = await jwt.sign(payload, process.env.SECRET)
-
-    res.status(200).send({
-      message: "Succesfully log in",
-      foundFarmer: {
-        name: foundFarmer.name,
-        email: foundFarmer.email
-      },
-      authenticated: comparePassword,
-      token: token
-    })
   },
 
   /////////////////////////////////
   getFarmerProfile: async (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1]
+    const token = req.headers.authorization.split(' ')[1]
     console.log(token)
 
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       console.log(decoded)
       res.status(200).send({
-        text: "success",
+        text: 'success',
         token: token
       })
     } catch (error) {
       res.status(404).send({
-        text: "error"
+        text: 'error'
       })
     }
   },
@@ -114,12 +120,12 @@ const controller = {
 
     if (farmer) {
       res.send({
-        message: "One farmer has been deleted",
+        message: 'One farmer has been deleted',
         farmer: farmer
       })
     } else {
       res.send({
-        message: "No farmer found with that id"
+        message: 'No farmer found with that id'
       })
     }
   }
