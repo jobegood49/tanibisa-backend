@@ -8,6 +8,7 @@ const Commoditiesschema = Schema({
   name: String,
   description: String,
   image: String,
+  price: Number,
   tags: [
     {
       type: String

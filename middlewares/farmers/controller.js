@@ -31,12 +31,9 @@ const controller = {
     const password = await bcrypt.hash(req.body.password, salt)
 
     const registerFarmer = {
-      name: req.body.name,
-      email: req.body.email,
-      salt: salt,
-      password: password,
-      image: req.body.image,
-      location: req.body.location
+      ...req.body,
+      salt,
+      password
     }
 
     const createdFarmer = await Farmer.create(registerFarmer).then(
@@ -45,11 +42,7 @@ const controller = {
 
     res.send({
       message: 'New Farmer has been created',
-      createdFarmer: {
-        name: createdFarmer.name,
-        email: createdFarmer.email,
-        location: createdFarmer.location
-      }
+      createdFarmer
     })
   },
 
@@ -126,6 +119,33 @@ const controller = {
     } else {
       res.send({
         message: 'No farmer found with that id'
+      })
+    }
+  },
+  updateOneFarmerById: async (req, res, next) => {
+    const farmerFound = await Farmer.findOne({ id: Number(req.params.id) })
+
+    // the farmer has to be found first
+    if (farmerFound) {
+      // create updatedfarmer from all the keys in request body
+      const updatedFarmer = { ...req.body }
+
+      const farmer = await Farmer.findOneAndUpdate(
+        { id: Number(req.params.id) },
+        { $set: updatedFarmer }, // set with new data
+        {
+          new: true, // show the latest update
+          select: '-password -salt'
+        }
+      )
+
+      res.send({
+        message: 'Update one farmer by id',
+        farmer: farmer
+      })
+    } else {
+      res.send({
+        message: 'Farmer is not found'
       })
     }
   }

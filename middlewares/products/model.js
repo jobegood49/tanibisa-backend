@@ -13,7 +13,8 @@ const Productschema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'Commodity'
   },
-  price: Number // item/Kg
+  price: Number, // item/Kg
+  image: String
 })
 
 // plug the AutoIncrement plugin into the schema to create auto incremented id
