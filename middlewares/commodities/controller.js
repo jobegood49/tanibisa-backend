@@ -26,7 +26,8 @@ const controller = {
       name: req.body.name,
       description: req.body.description,
       image: req.body.image,
-      tags: req.body.tags
+      tags: req.body.tags,
+      price: req.body.price
     }
     const result = await Commodity.create(newCommodity)
 
