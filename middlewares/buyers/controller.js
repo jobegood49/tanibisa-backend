@@ -95,6 +95,33 @@ const controller = {
       message: 'one buyer has been deleted',
       buyer: removeBuyerBydId
     })
+  },
+  updateOneBuyerById: async (req, res, next) => {
+    const buyerFound = await Buyer.findOne({ id: Number(req.params.id) })
+
+    // the buyer has to be found first
+    if (buyerFound) {
+      // create updatedbuyer from all the keys in request body
+      const updatedBuyer = { ...req.body }
+
+      const buyer = await Buyer.findOneAndUpdate(
+        { id: Number(req.params.id) },
+        { $set: updatedBuyer }, // set with new data
+        {
+          new: true, // show the latest update
+          select: '-password -salt'
+        }
+      )
+
+      res.send({
+        message: 'Update one buyer by id',
+        buyer: buyer
+      })
+    } else {
+      res.send({
+        message: 'Buyer is not found'
+      })
+    }
   }
 }
 
