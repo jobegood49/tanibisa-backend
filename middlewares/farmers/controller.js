@@ -86,14 +86,19 @@ const controller = {
   /////////////////////////////////
   getFarmerProfile: async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
-    console.log(token)
 
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
-      console.log(decoded)
+      console.log(decoded.sub)
+
+      const foundFarmer = await Farmer.findById(decoded.sub, {
+        salt: 0,
+        password: 0
+      })
+
       res.status(200).send({
-        text: 'success',
-        token: token
+        message: 'farmer profile',
+        farmer: foundFarmer
       })
     } catch (error) {
       res.status(404).send({
