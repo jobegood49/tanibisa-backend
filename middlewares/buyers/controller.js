@@ -73,13 +73,18 @@ const controller = {
 
   getBuyerProfile: async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
-    console.log(token)
+
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
-      console.log(decoded)
+
+      const foundBuyer = await Buyer.findById(decoded.sub, {
+        salt: 0,
+        password: 0
+      })
+
       res.status(200).send({
-        text: 'success',
-        token: token
+        message: 'buyer profile',
+        buyer: foundBuyer
       })
     } catch (error) {
       res.status(404).send({

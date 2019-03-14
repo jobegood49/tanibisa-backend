@@ -89,7 +89,6 @@ const controller = {
 
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
-      console.log(decoded.sub)
 
       const foundFarmer = await Farmer.findById(decoded.sub, {
         salt: 0,
