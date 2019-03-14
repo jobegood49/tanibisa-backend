@@ -3,9 +3,10 @@ const router = express.Router()
 
 const controller = require('./controller')
 
-router.get('/', controller.getCommodities)
-router.get('/seed', controller.getSeed)
+router.post('/seed', controller.seedCommodities)
 router.post('/', controller.createNewCommodity)
+
+router.get('/', controller.getCommodities)
 router.get('/:id', controller.getOneCommodityById)
 
 module.exports = router
