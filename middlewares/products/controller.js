@@ -30,13 +30,13 @@ const controller = {
 
     // 2. push new product into farmer's products
     const newFarmer = await Farmer.findOneAndUpdate(
-      { _id: farmer_id },
+      { _id: data.farmer_id },
       { $push: { products: newProduct._id } }
     )
 
     // 3. push new product into commodity's products
     const newCommodity = await Commodity.findOneAndUpdate(
-      { _id: newProduct.commodity_id },
+      { _id: data.commodity_id },
       { $push: { products: newProduct._id } }
     )
 
