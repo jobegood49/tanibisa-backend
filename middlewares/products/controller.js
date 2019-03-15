@@ -1,10 +1,19 @@
 const Product = require('./model')
 const jwt = require('jsonwebtoken')
+const SEED_DATA = require('./seed')
 
 const Commodity = require('../commodities/model')
 const Farmer = require('../farmers/model')
 
 const controller = {
+  seedProducts: async (req, res, next) => {
+    const result = await Products.create(SEED_DATA)
+
+    res.status(200).send({
+      message: 'Seed initial products:',
+      result
+    })
+  },
   //////////////////////////////////////////////////////////////////////////////
   getProducts: async (req, res, next) => {
     const products = await Product.find()

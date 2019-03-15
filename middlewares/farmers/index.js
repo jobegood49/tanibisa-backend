@@ -6,6 +6,8 @@ const auth = require('../auth/controller')
 
 router.get('/', controller.getFarmers)
 
+router.post('/seed', controller.seedFarmers)
+
 router.post('/register', controller.Register)
 
 router.post('/login', controller.Login)

@@ -3,6 +3,14 @@ const jwt = require('jsonwebtoken')
 const Farmer = require('./model')
 
 const controller = {
+  seedFarmers: async (req, res, next) => {
+    const result = await Farmers.create(SEED_DATA)
+
+    res.status(200).send({
+      message: 'Seed initial Farmers:',
+      result
+    })
+  },
   /////////////////////////////////
   getFarmers: async (req, res, next) => {
     const allFarmers = await Farmer.find({}, { salt: 0, password: 0 })
