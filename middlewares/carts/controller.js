@@ -17,20 +17,50 @@ const controller = {
   //////////////////////////////////////////////////////////////////////////////
   createNewCart: async (req, res, next) => {
     // default cart state
-    const newCart = {
-      buyer_id: req.decoded.sub, // buyer's objectId
-      products: req.body.products,
-      paid: false
-    }
-
-    console.log(newCart)
-
-    const result = await Cart.create(newCart)
-
-    res.send({
-      message: 'Created new cart',
-      result: result
+    const currentCart = await Cart.findOne({
+      buyer_id: { _id: req.decoded.sub }
     })
+
+    if (currentCart) {
+      let productIndex = 0
+      const currentProduct = currentCart.products.find((product, index) => {
+        if (product._id.toString() === req.body.products[0]._id) {
+          productIndex = index
+        }
+        return product._id.toString() === req.body.products[0]._id
+      })
+      if (currentProduct) {
+        console.log(currentCart.products[productIndex])
+        currentCart.products[productIndex].quantity =
+          currentCart.products[productIndex].quantity +
+          req.body.products[0].quantity
+        currentCart.save()
+      } else {
+        console.log('no product')
+
+        currentCart.products.push(req.body.products[0])
+        currentCart.save()
+      }
+
+      res.send({
+        message: 'Cart has benn updated',
+        result: currentCart
+      })
+    } else {
+      // console.log(req.decoded.sub)
+      const newCart = {
+        buyer_id: req.decoded.sub, // buyer's objectId
+        products: req.body.products,
+        paid: false
+      }
+
+      const result = await Cart.create(newCart)
+
+      res.send({
+        message: 'Created new cart',
+        result: result
+      })
+    }
   },
 
   //////////////////////////////////////////////////////////////////////////////
