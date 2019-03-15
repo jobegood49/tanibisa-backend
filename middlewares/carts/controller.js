@@ -19,7 +19,7 @@ const controller = {
     // default cart state
     const newCart = {
       buyer_id: req.decoded.sub, // buyer's objectId
-      products: [],
+      products: req.body.products,
       paid: false
     }
 
