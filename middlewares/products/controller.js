@@ -7,7 +7,7 @@ const Farmer = require('../farmers/model')
 
 const controller = {
   seedProducts: async (req, res, next) => {
-    const result = await Products.create(SEED_DATA)
+    const result = await Product.create(SEED_DATA)
 
     res.status(200).send({
       message: 'Seed initial products:',

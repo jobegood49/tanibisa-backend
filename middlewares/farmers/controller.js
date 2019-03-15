@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Farmer = require('./model')
+const SEED_DATA = require('./seed')
 
 const controller = {
   seedFarmers: async (req, res, next) => {
-    const result = await Farmers.create(SEED_DATA)
+    const result = await Farmer.create(SEED_DATA)
 
     res.status(200).send({
       message: 'Seed initial Farmers:',
