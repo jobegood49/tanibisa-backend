@@ -8,10 +8,11 @@ const controller = {
     const result = await Farmer.create(SEED_DATA)
 
     res.status(200).send({
-      message: 'Seed initial Farmers:',
+      message: 'Seed initial farmers:',
       result
     })
   },
+
   /////////////////////////////////
   getFarmers: async (req, res, next) => {
     const allFarmers = await Farmer.find({}, { salt: 0, password: 0 })

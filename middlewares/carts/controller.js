@@ -93,6 +93,17 @@ const controller = {
     })
 
     res.send(cart)
+  },
+  ///////////////////////////////////////////////////////////////////////////////////
+  paid: async (req, res, next) => {
+    await Cart.findOneAndUpdate(
+      { id: Number(req.params.id) },
+      { $set: { paid: true } }
+    )
+
+    res.send({
+      message: 'the cart is allready paid'
+    })
   }
 }
 
