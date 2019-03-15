@@ -20,7 +20,7 @@ const controller = {
   //////////////////////////////////////////////////////////////////////////////
   createNewProduct: async (req, res, next) => {
     const data = {
-      farmer_id: req.body.farmer_id,
+      farmer_id: req.decoded.sub,
       commodity_id: req.body.commodity_id,
       price: req.body.price
     }
