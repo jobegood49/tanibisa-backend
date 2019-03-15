@@ -1,12 +1,15 @@
 const Cart = require('./model')
+const Commodity = require('../commodities/model')
 
 const controller = {
   //////////////////////////////////////////////////////////////////////////////
   getCarts: async (req, res, next) => {
-    const carts = await Cart.find({}).populate('buyer_id', {
-      salt: 0,
-      password: 0
-    })
+    const carts = await Cart.find({})
+      .populate('buyer_id', {
+        salt: 0,
+        password: 0
+      })
+      .populate('products._id')
 
     res.status(200).send({
       message: 'Get all carts',
@@ -51,7 +54,8 @@ const controller = {
       const newCart = {
         buyer_id: req.decoded.sub, // buyer's objectId
         products: req.body.products,
-        paid: false
+        paid: false,
+        checkout: false
       }
 
       const result = await Cart.create(newCart)
@@ -67,10 +71,17 @@ const controller = {
   getOneCartById: async (req, res, next) => {
     // Cart.find({}).populate({ path: 'userId', populate: { path: 'reviewId' } })
 
-    const cart = await Cart.findOne({ id: Number(req.params.id) }).populate({
-      path: 'products._id',
-      populate: { path: 'commodity_id' }
-    })
+    const cart = await Cart.findOne({ id: Number(req.params.id) })
+      .populate({
+        path: 'products._id'
+      })
+      .populate({
+        path: 'products._id',
+        populate: {
+          path: 'commodity_id',
+          model: 'Commodity'
+        }
+      })
 
     res.status(200).send({
       message: 'Get one cart by id',
@@ -116,7 +127,12 @@ const controller = {
   checkout: async (req, res, next) => {
     const cart = await Cart.findOneAndUpdate(
       { id: Number(req.params.id) },
-      { $set: { checkout: true } }
+      {
+        $set: {
+          checkout: true,
+          addaress: req.body.address
+        }
+      }
     ).populate({
       path: 'products._id',
       populate: { path: 'products_id' }
