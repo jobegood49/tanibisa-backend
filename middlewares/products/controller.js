@@ -31,13 +31,20 @@ const controller = {
     // 2. push new product into farmer's products
     const newFarmer = await Farmer.findOneAndUpdate(
       { _id: data.farmer_id },
-      { $push: { products: newProduct._id } }
+      { $push: { products: newProduct._id } },
+      {
+        fields: { salt: 0, password: 0 }, // exclude password in farmer
+        new: true
+      }
     )
 
     // 3. push new product into commodity's products
     const newCommodity = await Commodity.findOneAndUpdate(
       { _id: data.commodity_id },
-      { $push: { products: newProduct._id } }
+      { $push: { products: newProduct._id } },
+      {
+        new: true
+      }
     )
 
     res.status(200).send({
