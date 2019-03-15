@@ -1,19 +1,45 @@
-const Product = require('./model')
 const jwt = require('jsonwebtoken')
-const SEED_DATA = require('./seed')
 
+const Product = require('./model')
 const Commodity = require('../commodities/model')
 const Farmer = require('../farmers/model')
+const SEED_DATA = require('./seed')
 
 const controller = {
   seedProducts: async (req, res, next) => {
-    const result = await Product.create(SEED_DATA)
+    const commodities = await Commodity.find().populate({
+      path: 'products',
+      populate: {
+        path: 'farmer_id commodity_id',
+        select: '-salt -password'
+      }
+    })
+
+    const products = commodities.forEach(async commodity => {
+      // SEED_DATA is around 3 objects
+      await SEED_DATA.forEach(async product => {
+        const newProduct = await Product.create({
+          ...product, // just a price key
+          farmer_id: req.decoded.sub,
+          commodity_id: commodity._id
+        })
+        await Farmer.findOneAndUpdate(
+          { _id: newProduct.farmer_id },
+          { $push: { products: newProduct._id } }
+        )
+        await Commodity.findOneAndUpdate(
+          { _id: newProduct.commodity_id },
+          { $push: { products: newProduct._id } }
+        )
+      })
+    })
 
     res.status(200).send({
       message: 'Seed initial products:',
-      result
+      products: products
     })
   },
+
   //////////////////////////////////////////////////////////////////////////////
   getProducts: async (req, res, next) => {
     const products = await Product.find()
@@ -63,6 +89,7 @@ const controller = {
       newCommodity: newCommodity
     })
   },
+
   ///////////////////////////////////////////////////////////////////////////////
   getOneProductById: async (req, res, next) => {
     const product = await Product.findOne({
