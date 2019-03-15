@@ -19,14 +19,14 @@ const controller = {
 
   //////////////////////////////////////////////////////////////////////////////
   createNewProduct: async (req, res, next) => {
-    const newProduct = {
+    const data = {
       farmer_id: req.body.farmer_id,
       commodity_id: req.body.commodity_id,
       price: req.body.price
     }
 
     // 1. create new product first
-    const newProduct = await Product.create(newProduct)
+    const newProduct = await Product.create(data)
 
     // 2. push new product into farmer's products
     const newFarmer = await Farmer.findOneAndUpdate(
